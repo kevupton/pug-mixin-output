@@ -3,8 +3,11 @@ const plugin = {
     preCodeGen: function (ast, pug) {
         ast.nodes.unshift({
             type: 'Code',
+            // language=JS
             val: `function __getMixinOutput(mixinName) {
-    let beforeHtml = pug_html;
+    if (!pug_mixins[mixinName]) {
+      return;
+    }
     
     let args = Array.from(arguments);
     args.shift();
